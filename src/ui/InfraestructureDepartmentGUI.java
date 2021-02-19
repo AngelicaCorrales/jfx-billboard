@@ -139,35 +139,38 @@ public class InfraestructureDepartmentGUI{
     	Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Billboard");
 		alert.setHeaderText(null);
-    	if(!txtWidth.getText().equals("") && !txtHeight.getText().equals("") && !txtBrand.getText().equals("")) {
-	    	double width =Double.parseDouble(txtWidth.getText());
-	    	double height =Double.parseDouble(txtHeight.getText());
-    		try {
-				billboardList.addBillboard(width, height, cbInUse.isSelected(),txtBrand.getText() );
-				txtWidth.clear();
-				txtHeight.clear();
-				txtBrand.clear();
-				cbInUse.setSelected(false);
-		    	alert.setContentText("The billboard has been saved!");
-
+		try {
+	    	if(!txtWidth.getText().equals("") && !txtHeight.getText().equals("") && !txtBrand.getText().equals("")) {
+		    	double width =Double.parseDouble(txtWidth.getText());
+		    	double height =Double.parseDouble(txtHeight.getText());
+	    		try {
+					billboardList.addBillboard(width, height, cbInUse.isSelected(),txtBrand.getText() );
+					txtWidth.clear();
+					txtHeight.clear();
+					txtBrand.clear();
+					cbInUse.setSelected(false);
+			    	alert.setContentText("The billboard has been saved!");
+	
+		    		alert.showAndWait();
+			    	
+	    		} catch (IOException e) {
+					e.printStackTrace();
+					alert.setContentText("The billboard was not added");
+	
+		    		alert.showAndWait();
+	    		}
+	    		    	
+	    	}
+	    	else {
+	    		alert.setContentText("You must fill each field in the form");
+	
 	    		alert.showAndWait();
-		    	
-    		} catch (IOException e) {
-				e.printStackTrace();
-				alert.setContentText("The billboard was not added");
-
-	    		alert.showAndWait();
-			}
-    		
-    		
-
-	    	
-    	}
-    	else {
-    		alert.setContentText("You must fill each field in the form");
+	    	}
+		}catch(NumberFormatException nfe) {
+			alert.setContentText("Enter numbers in width and height fields ");
 
     		alert.showAndWait();
-    	}
+		}
     }
 
 }
